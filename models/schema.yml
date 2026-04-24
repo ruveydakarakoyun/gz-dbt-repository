@@ -20,16 +20,12 @@ sources:
         columns:
           - name: date_date
             description: Date of purchase
-
           - name: orders_id
             description: Unique order identifier
-
           - name: pdt_id
             description: Product identifier
-
           - name: revenue
             description: Revenue amount
-
           - name: quantity
             description: Quantity sold
 
@@ -47,7 +43,6 @@ sources:
             tests:
               - not_null
               - unique
-
           - name: purchse_price
             description: Original purchase price
 
@@ -61,10 +56,8 @@ sources:
             tests:
               - not_null
               - unique
-
           - name: shipping_fee
             description: Shipping fee charged
-
           - name: ship_cost
             description: Shipping cost
 
@@ -83,3 +76,95 @@ sources:
       - name: facebook
         identifier: raw_gz_facebook
         description: Facebook Ads campaign data
+
+models:
+  - name: int_campaigns
+    description: Combined marketing campaigns data from all advertising platforms
+
+    columns:
+      - name: campaign_key
+        description: Campaign row identifier
+        tests:
+          - not_null
+
+      - name: date_date
+        description: Campaign date
+        tests:
+          - not_null
+
+      - name: paid_source
+        description: Advertising platform source
+        tests:
+          - not_null
+
+      - name: campaign_name
+        description: Campaign name
+        tests:
+          - not_null
+
+      - name: ads_cost
+        description: Advertising cost amount
+        tests:
+          - not_null
+
+  - name: int_campaigns_day
+    description: Daily aggregated advertising costs from all campaigns
+
+    columns:
+      - name: date_date
+        description: Campaign date
+        tests:
+          - not_null
+          - unique
+
+      - name: ads_cost
+        description: Total advertising cost per day
+        tests:
+          - not_null
+
+  - name: finance_campaigns_day
+    description: Daily finance KPIs combined with advertising campaign costs and performance
+
+    columns:
+      - name: date
+        description: Date of the finance and advertising metrics
+        tests:
+          - not_null
+          - unique
+
+
+      - name: average_basket
+        description: Average basket amount
+
+      - name: operational_margin
+        description: Operational margin before advertising cost
+
+      - name: ads_cost
+        description: Total advertising cost
+
+      - name: ads_impression
+        description: Total advertising impressions
+
+      - name: ads_clicks
+        description: Total advertising clicks
+
+      - name: quantity
+        description: Total quantity sold
+
+      - name: revenue
+        description: Total revenue
+
+      - name: purchase_cost
+        description: Total purchase cost
+
+      - name: margin
+        description: Revenue minus purchase cost
+
+      - name: shipping_fee
+        description: Total shipping fee
+
+      - name: log_cost
+        description: Total logistics cost
+
+      - name: ship_cost
+        description: Total shipping cost
